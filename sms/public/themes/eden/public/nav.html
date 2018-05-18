@@ -1,0 +1,80 @@
+<nav class="navbar navbar-default navbar-fixed-top active">
+    <div class="container active">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="__ROOT__/">{$theme_vars.company_name|default='Eden'}</a>
+        </div>
+
+        <div class="collapse navbar-collapse active" id="bs-example-navbar-collapse-1">
+            <ul id="main-menu" class="nav navbar-nav">
+                <li class="menu-item menu-item-level-1">
+                    <a href="{:cmf_url('sms/Session/index')}" target="">
+                        SMS
+                    </a>
+                </li>
+                <li>
+                    <a href="{:cmf_url('sms/Customer/index')}" target="">
+                        Contact
+                    </a>
+                </li>
+                <li>
+                    <a href="{:cmf_url('sms/Messages/send')}" target="">
+                        Send Message
+                    </a>
+                </li>
+                <li>
+                    <a href="{:cmf_url('sms/Group/index')}" target="">
+                        Group
+                    </a>
+                </li>
+                <li>
+                    <a href="{:cmf_url('sms/Blacklist/index')}" target="">
+                        Blacklist
+                    </a>
+
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right" id="main-menu-user">
+                <!--
+                <li class="login">
+                    <a class="dropdown-toggle notifactions" href="/index.php/user/notification/index"> <i
+                            class="fa fa-envelope"></i> <span class="count">0</span></a>
+                </li>
+                -->
+                <li class="dropdown user login">
+                    <a class="dropdown-toggle user" data-toggle="dropdown" href="#">
+                        <php>$user=cmf_get_current_user();</php>
+                        <if condition="empty($user['avatar'])">
+                            <img src="__TMPL__/public/assets/images/headicon.png" class="headicon">
+                            <else/>
+                            <img src="{:cmf_get_user_avatar_url($user['avatar'])}" class="headicon" width="30"/>
+                        </if>
+                        <span class="user-nickname"></span><b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu pull-right">
+                        <li><a href="{:cmf_url('user/Profile/edit')}"><i class="fa fa-user"></i> &nbsp;Profile</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li><a href="{:cmf_url('user/Index/logout')}"><i class="fa fa-sign-out"></i> &nbsp;Log out</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown user offline" style="display: list-item;">
+                    <a class="dropdown-toggle user" data-toggle="dropdown" href="#">
+                        <img src="__TMPL__/public/assets/images/headicon.png" class="headicon">
+                        Login<b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu pull-right">
+                        <li><a href="{:cmf_url('user/Login/index')}"><i class="fa fa-sign-in"></i> &nbsp;Login</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

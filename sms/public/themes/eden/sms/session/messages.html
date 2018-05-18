@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Inbound Messages</title>
+    <meta name="keywords" content="{$site_info.site_seo_keywords|default=''}"/>
+    <meta name="description" content="{$site_info.site_seo_description|default=''}">
+    <include file="public@head"/>
+</head>
+<body class="body-white">
+<include file="public@nav"/>
+
+<div class="container">
+    <div class="row">
+
+        <div class="col-md-12">
+            <ul id="myTabs" class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active">
+                    <a href="{:cmf_url('sms/Messages/inbound')}">
+                        Inbound Messages
+                    </a>
+                </li>
+                <li role="presentation">
+                    <a href="{:cmf_url('sms/Messages/outbound')}">
+                        Outbound Messages
+                    </a>
+                </li>
+                <li role="presentation">
+                    <a href="{:cmf_url('sms/Messages/send')}">
+                        Send Message
+                    </a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane fade in active">
+                    <div class=" direct-chat direct-chat-warning">
+                        <div class="direct-chat-messages">
+                            <foreach name="messages" item="vo">
+                                <!-- Message. Default to the left -->
+                                <div class="direct-chat-msg">
+                                    <div class="direct-chat-info clearfix">
+                                        <span class="direct-chat-name pull-left">{$vo.from_number} TO {$vo.to_number}</span>
+                                        <span class="direct-chat-timestamp pull-right">{:date('Y-m-d H:i:s',$vo.sent_time)}</span>
+                                    </div>
+                                    <!-- /.direct-chat-info -->
+                                    <!-- /.direct-chat-img -->
+                                    <div class="direct-chat-text">
+                                        {$vo.content}
+                                    </div>
+                                    <!-- /.direct-chat-text -->
+                                </div>
+                                <!-- /.direct-chat-msg -->
+                            </foreach>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- /container -->
+
+<include file="public@footer"/>
+<include file="public@scripts"/>
+<hook name="before_body_end"/>
+</body>
+</html>

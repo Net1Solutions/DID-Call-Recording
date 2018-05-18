@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>{$user_login} - Profile</title>
+<meta name="keywords" content=""/>
+<meta name="description" content="">
+<include file="public@head"/>
+<style>
+.control-label {
+	font-weight: bold;
+	float: left;
+	width: 70px;
+}
+</style>
+</head>
+<body class="body-white" id="top">
+<include file="public@nav" />
+	<div class="container tc-main">
+		<div class="row">
+			<div class="col-md-3">
+				<include file="public@usernav" />
+			</div>
+			<div class="col-md-9">
+				<div class="tabs">
+					<ul class="nav nav-tabs">
+						<li class="active"><a href="#one" data-toggle="tab"><i class="fa fa-list-alt"></i> Profile</a></li>
+					</ul>
+					<div class="tab-content">
+						<div class="tab-pane active" id="one">
+							<br>
+							<div class="row">
+								<div class="col-md-3">
+								<a href="{:url('profile/avatar')}">
+									<if condition="empty($avatar)"> 
+										<img src="__TMPL__/public/assets/images/headicon_128.png" class="headicon" width="128" />
+									<else />
+										<img src="__ROOT__/upload/{$avatar}" class="headicon" width="128"/>
+									</if>
+								</a>
+							</div>
+							<div class="col-md-9">
+								<div class="form-group">
+									<label class="control-label" for="input-user_nicename">Nickname</label>
+									<div>{$user_nickname|default='empty'}</div>
+								</div>
+								<div class="form-group">
+									<label class="control-label" for="input-sex">Gender</label>
+									<div>
+										<php> $sexs=array("0"=>"who knows?","1"=>"male","2"=>"female");echo $sexs[$sex]; </php>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="control-label" for="input-birthday">Birthday</label>
+									<div>{:date('Y-m-d',$birthday)}</div>
+								</div>
+								<div class="form-group">
+									<label class="control-label" for="input-user_url">Website</label>
+									<div>{$user_url|default='empty'}</div>
+								</div>
+								<div class="form-group">
+									<label class="control-label" for="input-signature">Signature</label>
+									<div>{$signature|default='empty'}</div>
+								</div>
+								<div class="form-group">
+									<a href="{:url('user/profile/edit')}" class="btn btn-primary">Edit</a>
+								</div>
+							</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<include file="public@footer" />
+	</div>
+<!-- /container -->
+<include file="public@scripts" />
+</body>
+</html>

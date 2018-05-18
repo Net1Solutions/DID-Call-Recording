@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Contacts</title>
+    <meta name="keywords" content=""/>
+    <meta name="description" content="">
+    <include file="public@head"/>
+</head>
+<body class="body-white">
+<include file="public@nav"/>
+
+<div class="container">
+    <div class="row">
+
+        <div class="col-md-12">
+            <ul id="myTabs" class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active">
+                    <a href="{:cmf_url('sms/Blacklist/index')}">
+                        Blacklist
+                    </a>
+                </li>
+            </ul>
+            <div class="tab-content margin-top-20">
+                <div role="tabpanel" class="tab-pane fade in active">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>Number</th>
+                                <th>Blocked at</th>
+                                <th width="220">Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <foreach name="numbers" item="vo">
+                                <tr>
+                                    <td>{$vo.number}</td>
+                                    <td>{:date('Y-m-d H:i:s',$vo.create_time)}</td>
+                                    <td>
+                                        <a href="javascript:openIframeLayer('{:url('sms/Blacklist/messages',['number'=>$vo.number])}','Messages from {$vo.number}',{area: ['95%', '95%']})">
+                                            Messages
+                                        </a>
+                                        &nbsp;
+                                        <a class="js-ajax-delete"
+                                           data-href="{:url('sms/Blacklist/cancel',['number'=>$vo.number])}"
+                                           href="javascript:;"
+                                           data-msg="Do you really want to unblock this number?"
+                                           data-ok-btn="Ok"
+                                           data-cancel-btn="Cancel">
+                                            Cancel
+                                        </a>
+                                    </td>
+                                </tr>
+                            </foreach>
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <ul class="pagination">{$page}</ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- /container -->
+
+<include file="public@footer"/>
+<include file="public@scripts"/>
+<hook name="before_body_end"/>
+</body>
+</html>

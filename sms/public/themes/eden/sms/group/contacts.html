@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Contacts</title>
+    <meta name="keywords" content=""/>
+    <meta name="description" content="">
+    <include file="public@head"/>
+    <style>
+        body {
+        }
+    </style>
+</head>
+<body class="body-white">
+<include file="public@nav"/>
+<div class="container">
+    <include file="group/group_head"/>
+    <div class="row">
+        <div class="col-md-12">
+            <ul id="myTabs" class="nav nav-tabs" role="tablist">
+                <li role="presentation">
+                    <a href="{:cmf_url('sms/Group/messages',['id'=>$group_id])}">
+                        Messages
+                    </a>
+                </li>
+                <li role="presentation">
+                    <a href="{:cmf_url('sms/Group/sendMessageDialog',['id'=>$group_id])}">
+                        Send Message
+                    </a>
+                </li>
+                <li role="presentation" class="active">
+                    <a href="{:cmf_url('sms/Group/contacts',['id'=>$group_id])}">
+                        Contacts
+                    </a>
+                </li>
+                <li role="presentation">
+                    <a href="{:cmf_url('sms/Group/addContact',['id'=>$group_id])}">
+                        Add To Contact
+                    </a>
+                </li>
+            </ul>
+            <form class="well form-inline margin-top-20" method="post" action="{:url('Group/contacts')}">
+                Name:
+                <input type="text" class="form-control" name="name" style="width: 200px;"
+                       value="{:input('param.name','')}" placeholder="">
+                Phone:
+                <input type="text" class="form-control" name="phone" style="width: 200px;"
+                       value="{:input('param.phone','')}" placeholder="">
+                <input type="hidden" class="form-control" name="id"
+                       value="{$group_id}" placeholder="">
+                <input type="submit" class="btn btn-primary" value="Search"/>
+                <a class="btn btn-danger" href="{:url('Group/contacts',['id'=>$group_id])}">Clear</a>
+            </form>
+            <div class="tab-content margin-top-20">
+                <div role="tabpanel" class="tab-pane fade in active">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th width="10%">Full Name</th>
+                                <th width="10%">Phone</th>
+                                <th width="15%">Created at</th>
+                                <th width="10%">Status</th>
+                                <th>Remark</th>
+                                <th width="220">Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <foreach name="customers" item="vo">
+                                <tr>
+                                    <td>{$vo.name}</td>
+                                    <td>{$vo.mobile}</td>
+                                    <td>{:date('Y-m-d H:i:s',$vo.create_time)}</td>
+                                    <td>OK</td>
+                                    <td>{$vo.remark}</td>
+                                    <td>
+                                        <a class="js-ajax-delete"
+                                           data-href="{:url('sms/Group/deleteContact',['customer_id'=>$vo.id,'group_id'=>$group_id,'id'=>$vo.group_customer_id])}"
+                                           href="javascript:;"
+                                           data-msg="Do you really want to delete the customer from group?"
+                                           data-ok-btn="Ok"
+                                           data-cancel-btn="Cancel">
+                                            Delete
+                                        </a>
+                                    </td>
+                                </tr>
+                            </foreach>
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <ul class="pagination">{$page}</ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- /container -->
+
+<include file="public@scripts"/>
+<hook name="before_body_end"/>
+</body>
+</html>

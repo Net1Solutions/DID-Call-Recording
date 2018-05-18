@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home</title>
+
+    <if condition="cmf_is_user_login()">
+        <meta http-equiv="refresh" content="0; url={:cmf_url('sms/Session/index')}">
+        <else/>
+        <meta http-equiv="refresh" content="0; url={:cmf_url('user/Login/index')}">
+    </if>
+
+
+</head>
+<body class="body-white">
+</body>
+</html>

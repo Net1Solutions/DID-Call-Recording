@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Inbound Messages</title>
+    <meta name="keywords" content="{$site_info.site_seo_keywords|default=''}"/>
+    <meta name="description" content="{$site_info.site_seo_description|default=''}">
+    <include file="public@head"/>
+    <style>
+        #chat-messages-list .right .direct-chat-name, #chat-messages-list .right .direct-chat-timestamp {
+            float: right;
+        }
+
+        .direct-chat-messages {
+            overflow-x: hidden;
+        }
+
+        .list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus {
+            background: #f9f9f9;
+            color: #555;
+        }
+
+        .list-group-item:first-child {
+            border-top: none;
+        }
+
+        .list-group-item:last-child {
+            border-bottom: none;
+        }
+
+        .badge-danger {
+            background-color: red;
+        }
+
+        .list-group-item.active > .badge.badge-danger {
+            background-color: red;
+            color: #fff;
+        }
+
+    </style>
+    <script type="text/html" id="msg-tpl">
+        <div class="direct-chat-msg right">
+            <div class="direct-chat-info clearfix">
+                <span class="direct-chat-name">Me</span>
+                <span class="direct-chat-timestamp pull-right">Just Now &nbsp;</span>
+            </div>
+            <!-- /.direct-chat-info -->
+            <!-- /.direct-chat-img -->
+            <div class="direct-chat-text">
+            </div>
+            <!-- /.direct-chat-text -->
+        </div>
+    </script>
+</head>
+<body class="body-white">
+<include file="public@nav"/>
+
+<div class="container">
+    <div class="row">
+        <notempty name="session">
+            <div class="col-md-4">
+                <form class="" action="{:cmf_url('sms/Session/index')}" method="post">
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="number" placeholder="number"
+                               value="{$form_data.number|default=''}">
+                    </div>
+                </form>
+                <div class="list-group"
+                     style="height: 485px;overflow-y: auto;border-top: 1px solid #ddd;border-bottom: 1px solid #ddd;">
+                    <foreach name="sessions" item="vo">
+                        <a class="list-group-item {$vo.id==$session.id?'active':''}"
+                           href="{:cmf_url('sms/Session/index',['id'=>$vo.id,'reading'=>1])}">
+                            <notempty name="vo.unread">
+                                <span class="badge badge-danger">{$vo.unread}</span>
+                                <else/>
+                                <span class="badge badge-danger"></span>
+                            </notempty>
+
+                            <notemtpy name="vo.last_message">
+                                <div class=" direct-chat direct-chat-warning">
+                                    <div class="direct-chat-messages">
+                                        <div class="direct-chat-msg {$vo.last_message.type==1?'right':''}">
+                                            <div class="direct-chat-info clearfix">
+                                                <span class="direct-chat-name pull-left">{$vo.to_number}</span>
+                                                <span class="direct-chat-timestamp pull-right">{:date('Y-m-d H:i:s',$vo.last_message.sent_time)}</span>
+                                            </div>
+                                            <div class="direct-chat-text">
+                                                {$vo.last_message.content}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </notemtpy>
+                        </a>
+                    </foreach>
+                </div>
+
+            </div>
+            <div class="col-md-8">
+                <div class="direct-chat direct-chat-warning">
+                    <div class="direct-chat-messages"
+                         style="height: 500px!important;overflow-y: auto;overflow-x: hidden"
+                         id="chat-messages-list">
+                        <foreach name="messages" item="vo">
+                            <!-- Message. Default to the left -->
+                            <div class="direct-chat-msg {$vo.type==1?'right':''}">
+                                <div class="direct-chat-info clearfix">
+                                    <span class="direct-chat-name">{$vo.from_number} TO {$vo.to_number}</span>
+                                    <span class="direct-chat-timestamp">&nbsp;{:date('Y-m-d H:i:s',$vo.sent_time)}&nbsp;</span>
+                                </div>
+                                <!-- /.direct-chat-info -->
+                                <!-- /.direct-chat-img -->
+                                <div class="direct-chat-text">
+                                    {$vo.content}
+                                </div>
+                                <!-- /.direct-chat-text -->
+                            </div>
+                            <!-- /.direct-chat-msg -->
+                        </foreach>
+
+
+                    </div>
+                </div>
+                <form style="margin: 0 10px;" id="message-form" onsubmit="return (function() {
+              $('#send-btn').click();
+         return false;
+            })()">
+                    <div class="input-group">
+                        <input type="hidden" name="from" value="{$session.from_number}">
+                        <input type="hidden" name="to" value="{$session.to_number}">
+                        <input type="text" name="message" placeholder="Type Message ..." class="form-control"
+                               id="msg-box">
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-warning btn-flat" id="send-btn">Send</button>
+                    </span>
+                    </div>
+                </form>
+            </div>
+            <else/>
+            <div class="text-center"> no result!</div>
+        </notempty>
+    </div>
+</div>
+<!-- /container -->
+
+<include file="public@footer"/>
+<include file="public@scripts"/>
+<script>
+    Wind.use('noty', function () {
+        var $chatMessagesList = $('#chat-messages-list');
+
+        $chatMessagesList.scrollTop(10000000000000000000);
+
+        $('#send-btn').click(function () {
+
+            var tpl     = $('#msg-tpl').html();
+            var $tpl    = $(tpl);
+            var $msgBox = $('#msg-box');
+            var message = $msgBox.val();
+            var data    = $('#message-form').serialize();
+            $msgBox.val('');
+            $tpl.find('.direct-chat-text').text(message);
+
+
+            $chatMessagesList.append($tpl);
+            $chatMessagesList.scrollTop(10000000000000000000);
+
+
+            $.ajax({
+                url: "{:url('Messages/sendPost')}",
+                type: 'POST',
+                dataType: 'JSON',
+                data: data,
+                success: function (data) {
+
+                    if (data.code) {
+                        noty({
+                            text: data.msg,
+                            type: 'success',
+                            layout: 'center',
+                            modal: true,
+                            callback: {
+                                afterClose: function () {
+                                }
+                            }
+                        });
+                    } else {
+                        noty({
+                            text: data.msg,
+                            type: 'error',
+                            layout: 'center',
+                            modal: true,
+                            callback: {
+                                afterClose: function () {
+                                }
+                            }
+                        });
+                    }
+
+
+                },
+                error: function () {
+
+                },
+                complete: function () {
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Contacts</title>
+    <meta name="keywords" content=""/>
+    <meta name="description" content="">
+    <include file="public@head"/>
+    <style>
+        body {
+        }
+    </style>
+</head>
+<body class="body-white">
+<include file="public@nav"/>
+<div class="container">
+    <include file="group/group_head"/>
+    <div class="row">
+        <div class="col-md-12">
+            <ul id="myTabs" class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active">
+                    <a href="{:cmf_url('sms/Group/messages',['id'=>$group_id])}">
+                        Messages
+                    </a>
+                </li>
+                <li role="presentation">
+                    <a href="{:cmf_url('sms/Group/sendMessageDialog',['id'=>$group_id])}">
+                        Send Message
+                    </a>
+                </li>
+                <li role="presentation">
+                    <a href="{:cmf_url('sms/Group/contacts',['id'=>$group_id])}">
+                        Contacts
+                    </a>
+                </li>
+                <li role="presentation">
+                    <a href="{:cmf_url('sms/Group/addContact',['id'=>$group_id])}">
+                        Add To Contact
+                    </a>
+                </li>
+            </ul>
+            <div class="tab-content margin-top-20">
+                <div role="tabpanel" class="tab-pane fade in active">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th width="10%">From Number</th>
+                                <th width="10%">Content</th>
+                                <th width="15%">Created at</th>
+                                <th width="10%">Total</th>
+                                <th width="10%">Sent Count</th>
+                                <th width="10%">Success Count</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <foreach name="sessions" item="vo">
+                                <tr class="session-row" data-id="{$vo.id}">
+                                    <td>{$vo.from_number}</td>
+                                    <td>{$vo.content}</td>
+                                    <td>{:date('Y-m-d H:i:s',$vo.create_time)}</td>
+                                    <td><span class="total-count">loading</span></td>
+                                    <td><span class="sent-count">loading</span></td>
+                                    <td><span class="success-count">loading</span></td>
+                                </tr>
+                            </foreach>
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <ul class="pagination">{$page}</ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- /container -->
+
+<include file="public@footer"/>
+<include file="public@scripts"/>
+<hook name="before_body_end"/>
+<script>
+    $('.session-row').each(function () {
+        var $this = $(this);
+        var id    = $this.data('id');
+        $.ajax({
+            url: "{:url('sms/group/sessionStatus')}?id=" + id,
+            dataType: 'JSON',
+            type: 'post',
+            success: function (data) {
+                if(data.code){
+                    $this.find('.total-count').text(data.data.numbers_in_list);
+                    $this.find('.success-count').text(data.data.messages_success);
+                    $this.find('.sent-count').text(data.data.messages_sent);
+                }else{
+                    $this.find('.total-count').text('');
+                    $this.find('.success-count').text('');
+                    $this.find('.sent-count').text('');
+                }
+                
+            },
+            error: function () {
+                
+            }
+
+        });
+    });
+</script>
+</body>
+</html>

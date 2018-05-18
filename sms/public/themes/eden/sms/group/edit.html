@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Group</title>
+    <meta name="keywords" content=""/>
+    <meta name="description" content="">
+    <include file="public@head"/>
+</head>
+<body class="body-white">
+<include file="public@nav"/>
+
+<div class="container">
+    <div class="row">
+
+        <div class="col-md-12">
+            <ul id="myTabs" class="nav nav-tabs" role="tablist">
+                <li role="presentation">
+                    <a href="{:cmf_url('sms/Group/index')}">
+                        Groups
+                    </a>
+                </li>
+                <li role="presentation">
+                    <a href="{:cmf_url('sms/Group/add')}">
+                        Add Group
+                    </a>
+                </li>
+                <li role="presentation" class="active">
+                    <a>
+                        Edit Group
+                    </a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane fade in active">
+                    <form class="form-horizontal col-md-10 margin-top-20 js-ajax-form" method="post"
+                          action="{:url('Group/editPost')}">
+                        <div class="row">
+                            <div class="col-md-2">&nbsp;</div>
+                            <div class="col-md-8">
+                                <div class="form-group ">
+                                    <label class="col-lg-3 control-label">Name <span
+                                            class="color-red">*</span>
+                                    </label>
+                                    <div class="col-lg-9">
+                                        <input class="form-control" name="name" value="{$group.name}">
+                                    </div>
+                                </div>
+                                <div class="form-group ">
+                                    <label class="col-lg-3 control-label">Remark <span
+                                            class="color-red">*</span></label>
+                                    <div class="col-lg-9">
+                                        <textarea class="form-control" name="remark" rows="7">{$group.remark}</textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group ">
+                                    <div class="col-md-10 col-md-offset-3">
+                                        <input type="hidden" name="id" value="{$group.id}">
+                                        <button class="btn btn-success js-ajax-submit" type="submit">Save</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2">&nbsp;</div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- /container -->
+
+<include file="public@footer"/>
+<include file="public@scripts"/>
+
+<script>
+    $('#js-fron-select').select2();
+</script>
+
+</body>
+</html>

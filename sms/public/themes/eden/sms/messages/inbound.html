@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Inbound Messages</title>
+    <meta name="keywords" content="{$site_info.site_seo_keywords|default=''}"/>
+    <meta name="description" content="{$site_info.site_seo_description|default=''}">
+    <include file="public@head"/>
+</head>
+<body class="body-white">
+<include file="public@nav"/>
+
+<div class="container">
+    <div class="row">
+
+        <div class="col-md-12">
+            <ul id="myTabs" class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active">
+                    <a href="{:cmf_url('sms/Messages/inbound')}">
+                        Inbound Messages
+                    </a>
+                </li>
+                <li role="presentation">
+                    <a href="{:cmf_url('sms/Messages/outbound')}">
+                        Outbound Messages
+                    </a>
+                </li>
+                <li role="presentation">
+                    <a href="{:cmf_url('sms/Messages/send')}">
+                        Send Message
+                    </a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane fade in active">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th width="10%">From</th>
+                            <th width="10%">To</th>
+                            <th width="15%">Sent</th>
+                            <th width="10%">Status</th>
+                            <th width="55%">Message</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <foreach name="messages" item="vo">
+                            <tr>
+                                <td>{$vo.from_number}</td>
+                                <td>{$vo.to_number}</td>
+                                <td>{:date('Y-m-d H:i:s')}</td>
+                                <td>RECEIVED</td>
+                                <td>{$vo.content}</td>
+                                <td>
+                                    <a href="{:url('sms/Messages/session')}" class="btn btn-success btn-sm" target="_blank">View</a>
+                                </td>
+                            </tr>
+                        </foreach>
+
+                        <tr>
+                            <td>16197524382</td>
+                            <td>17026285026</td>
+                            <td>Nov. 28, 2017, 10:06 p.m.</td>
+                            <td>RECEIVED</td>
+                            <td>Are you around tonight?</td>
+                            <td class="pull-right"><a href="/dashboard/messages/thread/1540/no_pin"
+                                                      class="btn btn-success btn-sm" target="_blank">View</a></td>
+                        </tr>
+                        <tr>
+                            <td>16197524382</td>
+                            <td>17026285026</td>
+                            <td>Nov. 28, 2017, 9:49 p.m.</td>
+                            <td>RECEIVED</td>
+                            <td>Hi! Fara?</td>
+                            <td class="pull-right"><a href="/dashboard/messages/thread/1540/no_pin"
+                                                      class="btn btn-success btn-sm" target="_blank">View</a></td>
+                        </tr>
+                        <tr>
+                            <td>525555057397</td>
+                            <td>17866503375</td>
+                            <td>Nov. 28, 2017, 9:03 p.m.</td>
+                            <td>RECEIVED</td>
+                            <td>Hi got any girls for tonight?</td>
+                            <td class="pull-right"><a href="/dashboard/messages/thread/1539/no_pin"
+                                                      class="btn btn-success btn-sm" target="_blank">View</a></td>
+                        </tr>
+                        <tr>
+                            <td>15166553723</td>
+                            <td>16464343989</td>
+                            <td>Nov. 28, 2017, 7:39 p.m.</td>
+                            <td>RECEIVED</td>
+                            <td>Hi. How much is a nuru massage?</td>
+                            <td class="pull-right"><a href="/dashboard/messages/thread/1538/no_pin"
+                                                      class="btn btn-success btn-sm" target="_blank">View</a></td>
+                        </tr>
+                        <tr>
+                            <td>18018377300</td>
+                            <td>17023318624</td>
+                            <td>Nov. 28, 2017, 7:32 p.m.</td>
+                            <td>RECEIVED</td>
+                            <td>I did. Yes</td>
+                            <td class="pull-right"><a href="javascript:;"
+                                                      class="btn btn-success btn-sm" target="_blank">View</a></td>
+                        </tr>
+                        <tr>
+                            <td>18018377300</td>
+                            <td>17023318624</td>
+                            <td>Nov. 28, 2017, 7:17 p.m.</td>
+                            <td>RECEIVED</td>
+                            <td>Ur # came up with a bunch of names.</td>
+                            <td class="pull-right"><a href="javascript:;"
+                                                      class="btn btn-success btn-sm" target="_blank">View</a></td>
+                        </tr>
+                        <tr>
+                            <td>18018377300</td>
+                            <td>17023318624</td>
+                            <td>Nov. 28, 2017, 7:13 p.m.</td>
+                            <td>RECEIVED</td>
+                            <td>This is melody right?</td>
+                            <td class="pull-right"><a href="javascript:;"
+                                                      class="btn btn-success btn-sm" target="_blank">View</a></td>
+                        </tr>
+                        <tr>
+                            <td>17026737281</td>
+                            <td>17022536969</td>
+                            <td>Nov. 28, 2017, 4:58 p.m.</td>
+                            <td>RECEIVED</td>
+                            <td>Thanks I was checking the time</td>
+                            <td class="pull-right"><a href="/dashboard/messages/thread/1536/no_pin"
+                                                      class="btn btn-success btn-sm" target="_blank">View</a></td>
+                        </tr>
+                        <tr>
+                            <td>17026737281</td>
+                            <td>17022536969</td>
+                            <td>Nov. 28, 2017, 4:55 p.m.</td>
+                            <td>RECEIVED</td>
+                            <td>Test</td>
+                            <td class="pull-right"><a href="/dashboard/messages/thread/1536/no_pin"
+                                                      class="btn btn-success btn-sm" target="_blank">View</a></td>
+                        </tr>
+                        <tr>
+                            <td>17577710558</td>
+                            <td>17026285026</td>
+                            <td>Nov. 28, 2017, 4:02 p.m.</td>
+                            <td>RECEIVED</td>
+                            <td>I'll have to wait for the weekend to get a hotel</td>
+                            <td class="pull-right"><a href="/dashboard/messages/thread/1535/no_pin"
+                                                      class="btn btn-success btn-sm" target="_blank">View</a></td>
+                        </tr>
+                        <tr>
+                            <td>17577710558</td>
+                            <td>17026285026</td>
+                            <td>Nov. 28, 2017, 4 p.m.</td>
+                            <td>RECEIVED</td>
+                            <td>Ok sorry</td>
+                            <td class="pull-right"><a href="/dashboard/messages/thread/1535/no_pin"
+                                                      class="btn btn-success btn-sm" target="_blank">View</a></td>
+                        </tr>
+                        <tr>
+                            <td>17577710558</td>
+                            <td>17026285026</td>
+                            <td>Nov. 28, 2017, 3:55 p.m.</td>
+                            <td>RECEIVED</td>
+                            <td>Mission valley do you do incall?</td>
+                            <td class="pull-right"><a href="/dashboard/messages/thread/1535/no_pin"
+                                                      class="btn btn-success btn-sm" target="_blank">View</a></td>
+                        </tr>
+                        <tr>
+                            <td>17577710558</td>
+                            <td>17026285026</td>
+                            <td>Nov. 28, 2017, 3:50 p.m.</td>
+                            <td>RECEIVED</td>
+                            <td>Are you available</td>
+                            <td class="pull-right"><a href="/dashboard/messages/thread/1535/no_pin"
+                                                      class="btn btn-success btn-sm" target="_blank">View</a></td>
+                        </tr>
+                        <tr>
+                            <td>18035211692</td>
+                            <td>17029390632</td>
+                            <td>Nov. 28, 2017, 3:30 p.m.</td>
+                            <td>RECEIVED</td>
+                            <td>$ª there thanks send me a picture of the local around closest to me I reckon
+                                Columbia
+                                wherever they at thank you baby
+                            </td>
+                            <td class="pull-right"><a href="/dashboard/messages/thread/1528/no_pin"
+                                                      class="btn btn-success btn-sm" target="_blank">View</a></td>
+                        </tr>
+                        <tr>
+                            <td>18035211692</td>
+                            <td>17029390632</td>
+                            <td>Nov. 28, 2017, 3:30 p.m.</td>
+                            <td>RECEIVED</td>
+                            <td>$ªething like that what time is it is like yeah 10 after 6 or whatever I can
+                                probably get
+                                anywhere I need to go in 2 hours and I'll come there too I'll go
+                            </td>
+                            <td class="pull-right"><a href="/dashboard/messages/thread/1528/no_pin"
+                                                      class="btn btn-success btn-sm" target="_blank">View</a></td>
+                        </tr>
+                        <tr>
+                            <td>18035211692</td>
+                            <td>17029390632</td>
+                            <td>Nov. 28, 2017, 3:30 p.m.</td>
+                            <td>RECEIVED</td>
+                            <td>$ªWhere's the closest place you have someone I need to know cuz I can drive
+                                there if I need
+                                to and tell me what she looks like or send me a picture or som
+                            </td>
+                            <td class="pull-right"><a href="/dashboard/messages/thread/1528/no_pin"
+                                                      class="btn btn-success btn-sm" target="_blank">View</a></td>
+                        </tr>
+                        <tr>
+                            <td>18035211692</td>
+                            <td>17029390632</td>
+                            <td>Nov. 28, 2017, 3:04 p.m.</td>
+                            <td>RECEIVED</td>
+                            <td>I told you I was in Charlotte and I said I drive anywhere I need to couple hours
+                                whatever to see
+                                you where you at
+                            </td>
+                            <td class="pull-right"><a href="/dashboard/messages/thread/1528/no_pin"
+                                                      class="btn btn-success btn-sm" target="_blank">View</a></td>
+                        </tr>
+                        <tr>
+                            <td>18035211692</td>
+                            <td>17029390632</td>
+                            <td>Nov. 28, 2017, 3:02 p.m.</td>
+                            <td>RECEIVED</td>
+                            <td>So what time could I get you to set up appointment to come over or did you need me
+                                to come to
+                                you by appointment only
+                            </td>
+                            <td class="pull-right"><a href="/dashboard/messages/thread/1528/no_pin"
+                                                      class="btn btn-success btn-sm" target="_blank">View</a></td>
+                        </tr>
+                        <tr>
+                            <td>18035211692</td>
+                            <td>17029390632</td>
+                            <td>Nov. 28, 2017, 2:59 p.m.</td>
+                            <td>RECEIVED</td>
+                            <td>Just get back with me thanks okay baby you sexy thing love you don't eat you suck on
+                                that pussy
+                                I'll eat you good baby
+                            </td>
+                            <td class="pull-right"><a href="/dashboard/messages/thread/1528/no_pin"
+                                                      class="btn btn-success btn-sm" target="_blank">View</a></td>
+                        </tr>
+                        <tr>
+                            <td>13108740113</td>
+                            <td>17024781555</td>
+                            <td>Nov. 28, 2017, 1:44 p.m.</td>
+                            <td>RECEIVED</td>
+                            <td>Ok I will send now</td>
+                            <td class="pull-right"><a href="/dashboard/messages/thread/1534/no_pin"
+                                                      class="btn btn-success btn-sm" target="_blank">View</a></td>
+                        </tr>
+                        <tr>
+                            <td>13108740113</td>
+                            <td>17024781555</td>
+                            <td>Nov. 28, 2017, 1:39 p.m.</td>
+                            <td>RECEIVED</td>
+                            <td>In Las Vegas no I am first time here</td>
+                            <td class="pull-right"><a href="/dashboard/messages/thread/1534/no_pin"
+                                                      class="btn btn-success btn-sm" target="_blank">View</a></td>
+                        </tr>
+                        <tr>
+                            <td>13108740113</td>
+                            <td>17024781555</td>
+                            <td>Nov. 28, 2017, 1:32 p.m.</td>
+                            <td>RECEIVED</td>
+                            <td>London</td>
+                            <td class="pull-right"><a href="/dashboard/messages/thread/1534/no_pin"
+                                                      class="btn btn-success btn-sm" target="_blank">View</a></td>
+                        </tr>
+                        <tr>
+                            <td>13108740113</td>
+                            <td>17024781555</td>
+                            <td>Nov. 28, 2017, 1:25 p.m.</td>
+                            <td>RECEIVED</td>
+                            <td>Yes)</td>
+                            <td class="pull-right"><a href="/dashboard/messages/thread/1534/no_pin"
+                                                      class="btn btn-success btn-sm" target="_blank">View</a></td>
+                        </tr>
+                        <tr>
+                            <td>13108740113</td>
+                            <td>17024781555</td>
+                            <td>Nov. 28, 2017, 1:19 p.m.</td>
+                            <td>RECEIVED</td>
+                            <td>Hello .
+                                My name is Anet , I am a model I just arrived to Las Vegas .
+                                I went through the internet and found your agency. Can i send u my photos , please ?
+                            </td>
+                            <td class="pull-right"><a href="/dashboard/messages/thread/1534/no_pin"
+                                                      class="btn btn-success btn-sm" target="_blank">View</a></td>
+                        </tr>
+                        <tr>
+                            <td>18035211692</td>
+                            <td>17029390632</td>
+                            <td>Nov. 28, 2017, 12:37 p.m.</td>
+                            <td>RECEIVED</td>
+                            <td>Ê1but you're beautiful and if you want to spend some time with me that's fine
+                                give me out
+                                with me thank you
+                            </td>
+                            <td class="pull-right"><a href="/dashboard/messages/thread/1528/no_pin"
+                                                      class="btn btn-success btn-sm" target="_blank">View</a></td>
+                        </tr>
+                        <tr>
+                            <td>17029173313</td>
+                            <td>17023318355</td>
+                            <td>Nov. 28, 2017, 12:03 p.m.</td>
+                            <td>RECEIVED</td>
+                            <td>Test</td>
+                            <td class="pull-right"><a href="/dashboard/messages/thread/1533/no_pin"
+                                                      class="btn btn-success btn-sm" target="_blank">View</a></td>
+                        </tr>
+                        <tr>
+                            <td>16306596391</td>
+                            <td>17023318355</td>
+                            <td>Nov. 28, 2017, 9:07 a.m.</td>
+                            <td>RECEIVED</td>
+                            <td>10 mins from the strip</td>
+                            <td class="pull-right"><a href="/dashboard/messages/thread/1529/no_pin"
+                                                      class="btn btn-success btn-sm" target="_blank">View</a></td>
+                        </tr>
+                        <tr>
+                            <td>16306596391</td>
+                            <td>17023318355</td>
+                            <td>Nov. 28, 2017, 8:59 a.m.</td>
+                            <td>RECEIVED</td>
+                            <td>I’m too pretty to pay that much</td>
+                            <td class="pull-right"><a href="/dashboard/messages/thread/1529/no_pin"
+                                                      class="btn btn-success btn-sm" target="_blank">View</a></td>
+                        </tr>
+                        <tr>
+                            <td>16306596391</td>
+                            <td>17023318355</td>
+                            <td>Nov. 28, 2017, 8:52 a.m.</td>
+                            <td>RECEIVED</td>
+                            <td>Depends on $</td>
+                            <td class="pull-right"><a href="/dashboard/messages/thread/1529/no_pin"
+                                                      class="btn btn-success btn-sm" target="_blank">View</a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- /container -->
+
+<include file="public@footer"/>
+<include file="public@scripts"/>
+<hook name="before_body_end"/>
+</body>
+</html>

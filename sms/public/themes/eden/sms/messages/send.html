@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Inbound Messages</title>
+    <meta name="keywords" content="{$site_info.site_seo_keywords|default=''}"/>
+    <meta name="description" content="{$site_info.site_seo_description|default=''}">
+    <include file="public@head"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+</head>
+<body class="body-white">
+<include file="public@nav"/>
+
+<div class="container">
+    <div class="row">
+
+        <div class="col-md-12">
+            <ul id="myTabs" class="nav nav-tabs" role="tablist">
+
+                <li role="presentation" class="active">
+                    <a href="{:cmf_url('sms/Messages/send')}">
+                        Send Message
+                    </a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane fade in active">
+                    <form class="form-horizontal col-md-10 margin-top-20 js-ajax-form" method="post" action="{:url('Messages/sendPost')}">
+                        <div class="row">
+                            <div class="col-md-2">&nbsp;</div>
+                            <div class="col-md-8">
+                                <div class="form-group ">
+                                    <label class="col-lg-3 control-label">From Number <span
+                                            class="color-red">*</span></label>
+                                    <div class="col-lg-9">
+                                        <select class="form-control" name="from" id="js-fron-select">
+                                            <option value="17022536969">{:_sms_format_number('7022536969')}</option>
+                                            <foreach name="numbers" item="vo">
+                                                <option value="1{$vo.number}">{:_sms_format_number($vo.number)}</option>
+                                            </foreach>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group ">
+                                    <label class="col-lg-3 control-label">To Number <span
+                                            class="color-red">*</span></label>
+                                    <div class="col-lg-9">
+                                        <input class="form-control" name="to" rows="7" value="">
+                                    </div>
+                                </div>
+                                <div class="form-group ">
+                                    <label class="col-lg-3 control-label">Message <span
+                                            class="color-red">*</span></label>
+                                    <div class="col-lg-9">
+                                        <textarea class="form-control js-message-box" name="message" rows="7"></textarea>
+                                        <span id="helpBlock" class="help-block js-message-box-counter"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group ">
+                                    <div class="col-md-10 col-md-offset-3">
+                                        <button class="btn btn-success js-ajax-submit" type="submit">Send Message</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2">&nbsp;</div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- /container -->
+
+<include file="public@footer"/>
+<include file="public@scripts"/>
+
+<script>
+    $('#js-fron-select').select2();
+
+    $('.js-message-box').on('keyup', function () {
+        var $this = $(this);
+        var val   = $this.val();
+        if (val.length > 0) {
+            $this.siblings('.js-message-box-counter').text(val.length + 'characters');
+        } else {
+            $this.siblings('.js-message-box-counter').text('');
+        }
+    });
+    /*
+    $.ajax({
+        url: 'https://eden_user:dadis1917@api.apeiron.io/v2/me',
+        type: 'GET',
+        headers: {
+            'API Token': 'Tria7aNsmrTq4OZKBhlPOAuE2hiRHHZWSPYplsFHKygLUeczGsr424yK2EDnCgnc'
+        },
+        success: function (data) {
+
+        }
+
+    });
+
+    var formNumbers = [];
+
+    getFromNumbers('https://api.apeiron.io/v2/sms');
+
+    function getFromNumbers(url) {
+        $.ajax({
+            url: url,
+            type: 'GET',
+            headers: {
+                Authorization: 'Basic {$basic_token}'
+            },
+            success: function (data) {
+
+                if (data.results.length > 0) {
+                    $.each(data.results, function (i, item) {
+                        formNumbers.push({
+                            id: '1' + item.number,
+                            text: item.number
+                        })
+                        ;
+                    });
+
+                    if (!data.next) {
+                        $('#js-fron-select').select2();
+                    }
+                }
+
+                if (data.next) {
+                    getFromNumbers(data.next);
+                }
+
+
+            },
+            error:function (XMLHttpRequest, textStatus, errorThrown) {
+                alert(errorThrown);
+            }
+
+        });
+    }
+*/
+
+</script>
+
+</body>
+</html>

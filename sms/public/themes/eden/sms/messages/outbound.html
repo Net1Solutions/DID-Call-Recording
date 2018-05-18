@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Outbound Messages</title>
+    <meta name="keywords" content="{$site_info.site_seo_keywords|default=''}"/>
+    <meta name="description" content="{$site_info.site_seo_description|default=''}">
+    <include file="public@head"/>
+</head>
+<body class="body-white">
+<include file="public@nav"/>
+
+<div class="container">
+    <div class="row">
+
+        <div class="col-md-12">
+            <ul id="myTabs" class="nav nav-tabs" role="tablist">
+                <li role="presentation">
+                    <a href="{:cmf_url('sms/Messages/inbound')}">
+                        Inbound Messages
+                    </a>
+                </li>
+                <li role="presentation" class="active">
+                    <a href="{:cmf_url('sms/Messages/outbound')}">
+                        Outbound Messages
+                    </a>
+                </li>
+                <li role="presentation">
+                    <a href="{:cmf_url('sms/Messages/send')}">
+                        Send Message
+                    </a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane fade in active">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th width="10%">From</th>
+                            <th width="10%">To</th>
+                            <th width="15%">Sent</th>
+                            <th width="10%">Status</th>
+                            <th width="55%">Message</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                       <foreach name="messages" item="vo">
+                           <tr>
+                               <td>{$vo.from_number}</td>
+                               <td>{$vo.to_number}</td>
+                               <td>{:date('Y-m-d H:i:s',$vo.sent_time)}</td>
+                               <td>DELIVRD</td>
+                               <td>{$vo.content}</td>
+                               <td class="pull-right"></td>
+                           </tr>
+                       </foreach>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <!-- /container -->
+
+    <include file="public@footer"/>
+    <include file="public@scripts"/>
+    <hook name="before_body_end"/>
+</body>
+</html>

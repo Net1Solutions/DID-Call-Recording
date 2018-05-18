@@ -1,0 +1,16 @@
+<foreach name="messages" item="vo">
+    <!-- Message. Default to the left -->
+    <div class="direct-chat-msg {$vo.type==1?'right':''}">
+        <div class="direct-chat-info clearfix">
+            <span class="direct-chat-name">{$vo.from_number} TO {$vo.to_number}</span>
+            <span class="direct-chat-timestamp">&nbsp;{:date('Y-m-d H:i:s',$vo.sent_time)}&nbsp;</span>
+        </div>
+        <!-- /.direct-chat-info -->
+        <!-- /.direct-chat-img -->
+        <div class="direct-chat-text">
+            {$vo.content}
+        </div>
+        <!-- /.direct-chat-text -->
+    </div>
+    <!-- /.direct-chat-msg -->
+</foreach>

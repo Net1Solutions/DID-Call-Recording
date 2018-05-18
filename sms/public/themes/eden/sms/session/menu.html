@@ -1,0 +1,34 @@
+<foreach name="sessions" item="vo">
+    <notempty name="vo.last_message.id">
+        <a class="list-group-item {$vo.id==$session.id?'active':''} {$vo.unread?'unread active':''}"
+           href="{:cmf_url('sms/Session/index',['id'=>$vo.id,'reading'=>1])}"
+           id="session{$vo.id}">
+            <notempty name="vo.unread">
+                <span class="badge badge-danger">{$vo.unread}</span>
+                <else/>
+                <span class="badge badge-danger"></span>
+            </notempty>
+
+
+            <div class="direct-chat direct-chat-custom">
+                <div class="direct-chat-messages">
+                    <div class="direct-chat-msg {$vo.last_message.type==1?'right':''}">
+                        <div class="direct-chat-info clearfix">
+                            <span class="direct-chat-name pull-left">{$vo.to_number} TO {$vo.from_number} <span class="did-name-{$vo.from_number}"></span></span>
+                        </div>
+                        <div class="direct-chat-text">
+                            {$vo.last_message.content}
+                        </div>
+                        <div class="clearfix"></div>
+                        <div>
+                            <span class="direct-chat-timestamp">{:date('Y-m-d H:i:s',$vo.last_message.sent_time)}</span>
+                            <span class="js-hide-session-btn" data-id="{$vo.id}"><i
+                                    class="fa fa-eye-slash"></i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </a>
+    </notempty>
+</foreach>
